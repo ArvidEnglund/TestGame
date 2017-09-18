@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <body>
+
+        <p id="demo"></p>
+
+        <script>
+
+            var fireBall ={
+                name : "Fireball",
+                type : "Attack",
+                dmg : 15,
+                castTime : 2,
+                cooldown : 10,
+                extra : "DOT",
+                dot_dmg : 2,
+                duration : 3
+            }
+
+            var frostBolt ={
+                name : "Frostbolt",
+                type : "Attack",
+                dmg : 10,
+                castTime : 2,
+                cooldown : 10,
+                extra : "SLOW",
+                duration : 2
+            }
+
+            function cast(x){
+                var effect = "" + x.name;
+                switch (x.type) {
+                    case "Attack":
+                        effect = effect + " *Damage: " + x.dmg;
+                                
+                        if (x.extra == "DOT"){
+                            effect = effect + " *Continous damage: " + x.dot_dmg + " for " + x.duration + " turns.";
+                            };
+                                
+                        if (x.extra == "SLOW"){
+                            effect = effect + " *Slowed: " + x.duration + " turns.";
+                            };
+                                
+                    break;
+                            
+                }    
+                return effect;
+            }
+
+            var mC = {
+                name: "John",
+                style : "Old Man",
+                mana       : 5566,
+                health : 100,
+                skills : [fireBall, frostBolt],
+                useSkill : function(x) {
+                    return cast(x);
+                    }
+            };
+
+    document.getElementById("demo").innerHTML = cast(mC.skills[1]);
+            
+        </script>
+
+    </body>
+</html>
