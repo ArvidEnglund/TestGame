@@ -9,9 +9,9 @@
     </head>
     
     <body>
-        <table style="width:100%;font-size:24px">
+        <table style="width:100%;font-size:20px">
             <tr>
-                <th style="width:100%" id="tabletop">title text </button></th>
+                <th style="width:100%" id="tabletop">Battle Game </button></th>
             </tr>
         </table>
 
@@ -22,7 +22,7 @@
 
 
 
-        <table style="width:100%;font-size:24px">
+        <table style="width:100%;font-size:16px">
             <tr>
               <th style="width:50%" id="tablebutton1box"><button id="tablebutton1" type="button" style="font-size:24px">---</button>
               </th>
@@ -52,7 +52,7 @@
                 castTime : 2,
                 cooldown : 10,
                 extra : "DOT",
-                dot_dmg : 2,
+                extra_dmg : 2,
                 duration : 3,
                 text : "15 dmg + 2 dmg every turn for 3 turns.",
                 button : "fireballbutton"
@@ -73,23 +73,19 @@
             }
 
             function cast(x){ // TODO Add Target.
-                var effect = "" + x.name;
+                
                 switch (x.type) {
                     case "Attack":
-                        effect = effect + " Damage: " + x.dmg;
                                 
                         if (x.extra == "DOT"){
-                            effect = effect + " + " + x.dot_dmg + " damage every turn for " + x.duration + " turns.";
                             };
                                 
                         if (x.extra == "SLOW"){
-                            effect = effect + " and Slowed for " + x.duration + " turns.";
                             };
                                 
                     break;
                             
                 }    
-                return effect;
             }
 
             var mc = {
