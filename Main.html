@@ -16,14 +16,15 @@
               <th id="text">text here</th>
             </tr>
         </table>
-        <button type="button" onclick='var aa = cast(mC.skills[1]); document.getElementById("text").innerHTML = aa' >Attack!</button>
-        
+        <button id = "button1" type="button" onclick='var aa = cast(mc.skills[1]); document.getElementById("text").innerHTML = aa' >Frostbolt!</button>
+        <button id = "button2" type="button" onclick='var aa = cast(mc.skills[0]); document.getElementById("text").innerHTML = aa' >Fireball!</button>
         
         <script>
 
             var fireBall ={
                 name : "Fireball",
                 type : "Attack",
+                manacost : 10,
                 dmg : 15,
                 castTime : 2,
                 cooldown : 10,
@@ -35,6 +36,7 @@
             var frostBolt ={
                 name : "Frostbolt",
                 type : "Attack",
+                manacost : 5,
                 dmg : 10,
                 castTime : 2,
                 cooldown : 10,
@@ -42,14 +44,14 @@
                 duration : 2
             }
 
-            function cast(x){ // Add Target.
+            function cast(x){ // TODO Add Target.
                 var effect = "" + x.name;
                 switch (x.type) {
                     case "Attack":
                         effect = effect + " *Damage: " + x.dmg;
                                 
                         if (x.extra == "DOT"){
-                            effect = effect + " *Continous damage: " + x.dot_dmg + " for " + x.duration + " turns.";
+                            effect = effect + " *Continous damage: " + x.dot_dmg + " damage every turn for " + x.duration + " turns.";
                             };
                                 
                         if (x.extra == "SLOW"){
@@ -62,7 +64,7 @@
                 return effect;
             }
 
-            var mC = {
+            var mc = {
                 name: "John",
                 style : "Old Man",
                 mana       : 5566,
@@ -73,8 +75,16 @@
                     }
             };
 
-    //document.getElementById("text").innerHTML = cast(mC.skills[1]);
-            
+        // Set up buttons correctly.
+        function buttonset(target, content){
+            document.getElementById(target).innerHTML = content;
+            document.getElementById(target).innerHTML = content;
+        };
+        buttonset("button2", mc.skills[0].name + ' : ' + mc.skills[0].manacost + ' mana' );
+        buttonset("button1", mc.skills[1].name + " : " + mc.skills[1].manacost + " mana" );
+
+
+
         </script>
 
     </body>
