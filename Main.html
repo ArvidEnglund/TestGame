@@ -1,9 +1,24 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <style>
+        table, th, td {
+            border: 1px solid black;
+        }
+        </style>
+    </head>
+    
     <body>
 
-        <p id="demo"></p>
 
+        <table style="width:100%">
+            <tr>
+              <th id="text">text here</th>
+            </tr>
+        </table>
+        <button type="button" onclick='var aa = cast(mC.skills[1]); document.getElementById("text").innerHTML = aa' >Attack!</button>
+        
+        
         <script>
 
             var fireBall ={
@@ -27,7 +42,7 @@
                 duration : 2
             }
 
-            function cast(x){
+            function cast(x){ // Add Target.
                 var effect = "" + x.name;
                 switch (x.type) {
                     case "Attack":
@@ -58,7 +73,7 @@
                     }
             };
 
-    document.getElementById("demo").innerHTML = cast(mC.skills[1]);
+    //document.getElementById("text").innerHTML = cast(mC.skills[1]);
             
         </script>
 
