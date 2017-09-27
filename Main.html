@@ -2,44 +2,81 @@
 <html>
     <head>
         <style>
-        table, th, td {
-            border: 1px solid black;
-        }
+            p{
+                font-size : "24px";
+            }
+            table, th, td {
+                border: 1px solid black;
+                border-collapse: collapse;
+            }
+            th, td {
+            padding: 5px;
+                text-align: center;    
+            }
         </style>
     </head>
     
     <body>
-        <table style="width:100%;font-size:20px">
+        <table style=" width:100%;border:1px solid white">
+            
             <tr>
-                <th style="width:100%" id="tabletop">Battle Game </button></th>
+                <td style="height:50px;border:1px solid white">
+                    <p id="tabletop1"></p>
+                </td>
+                <td style="width:50%;height:50px;border:1px solid white">
+                    Battle Game
+                </td>
+                <td style="height:50px;border:1px solid white">
+                    <p id="tabletop2"></p>
+                </td>
             </tr>
         </table>
-
-
-        <p style="font-size:24px"  id="tabletext1">text1</p>
-        <p style="font-size:24px"  id="tabletext2">text2</p>
-        <p style="font-size:24px"  id="tabletextactions">action text</p>
-
-
-
-        <table style="width:100%;font-size:16px">
+        <table style="width:100%; height:300">
             <tr>
-              <th style="width:50%" id="tablebutton1box"><button id="tablebutton1" type="button" style="font-size:24px">---</button>
-              </th>
-              <th style="width:50%" id="tablebutton2box"><button id="tablebutton2" type="button" style="font-size:24px">---</button>
-              </th>
+                    <td>
+                        <div style="height:100px" id="player1text">text 1</div>
+                    </td>
+                    <td>
+                        <div style="height:100px" id="player2text">text 2</div>
+                    </td>
+                            
+            </tr>
+        </table>
+    
+        <div id="tabletextactions" style="height:150px;padding:15px" align="center" >action</div>
+            
+
+        <table style=" width:100%; height:300; border: 1px solid black;">
+            <tr>
+                <th style="width:50%" id="tablebutton1box"><button id="tablebutton1" type="button" style="font-size:24px">---</button>
+                    <p style="width:100%" id="tablebutton1boxdesc">
+                    </p>
+                
+                </th>
+                <th style="width:50%" id="tablebutton2box"><button id="tablebutton2" type="button" style="font-size:24px">---</button>
+                    <p style="width:100%" id="tablebutton2boxdesc">
+                    </p>
+                </th>
             </tr>
             <tr>
-                <th style="width:50%" id="tablebutton1boxdesc"></button>
+                <th style="width:50%" id="tablebutton3box"><button id="tablebutton3" type="button" style="font-size:24px">---</button>
+                    <p style="width:100%" id="tablebutton3boxdesc">
+                    </p>
+                
                 </th>
-                <th style="width:50%" id="tablebutton2boxdesc"></button>
+                <th style="width:50%" id="tablebutton4box"><button id="tablebutton4" type="button" style="font-size:24px">---</button>
+                    <p style="width:100%" id="tablebutton4boxdesc">
+                    </p>
+                
                 </th>
             </tr>
         </table>
 
         <! Action Buttons: >
-        <button id = "frostboltbutton" style="display:none" onclick='document.getElementById("tabletextactions").innerHTML = fireBall.text; cast(fireBall)' ></button>
-        <button id = "fireballbutton" style="display:none" onclick= 'document.getElementById("tabletextactions").innerHTML = frostBolt.text; cast(frostBolt)'></button>
+        <button id = "frostboltbutton" style="display:none" onclick='document.getElementById("tabletextactions").innerHTML = cast(frostBolt)' ></button>
+        <button id = "fireballbutton" style="display:none" onclick='document.getElementById("tabletextactions").innerHTML = cast(fireBall)'></button>
+        <button id = "frostfirebutton" style="display:none" onclick='document.getElementById("tabletextactions").innerHTML = cast(frostfire)'></button>
+        
         
         <script>
 
@@ -54,7 +91,7 @@
                 extra : "DOT",
                 extra_dmg : 2,
                 duration : 3,
-                text : "15 dmg + 2 dmg every turn for 3 turns.",
+                desc : "Cost: 10 mana. Deals 15 dmg + 2 dmg every turn for 3 turns afterwards.",
                 button : "fireballbutton"
             }
 
@@ -68,24 +105,52 @@
                 cooldown : 10,
                 extra : "SLOW",
                 duration : 2,
-                text : "10 dmg and slowed for 2 turns",
+                desc : "Cost: 5 mana. Deals 10 dmg and slows target for 2 turns",
                 button : "frostboltbutton"
+            }
+
+            var frostfire ={
+                name : "Frost-Fire",
+                type : "Attack",
+                color : "purple",
+                cost : 15,
+                dmg : 15,
+                castTime : 3,
+                cooldown : 10,
+                extra : "DOT SLOW",
+                extra_dmg : 2,
+                duration : 3,
+                desc : "Cost: 15 mana. Deals 15 dmg + 2 dmg every turn and slows the target for 3 turns afterwards.",
+                button : "frostfirebutton"
             }
 
             function cast(x){ // TODO Add Target.
                 
+                var effect = "";
+                
+                var substringDOT = "DOT";
+                var substringSLOW = "SLOW";
+                
+
+
+
                 switch (x.type) {
                     case "Attack":
+                        effect += "Damage dealt: " + x.dmg + ". ";
                                 
-                        if (x.extra == "DOT"){
+                        if (x.extra.includes(substringDOT)){
+                            effect += " Enemy takes " + x.extra_dmg + " extra damage per turn for " + x.duration + " turns.";
                             };
                                 
-                        if (x.extra == "SLOW"){
+                        if (x.extra.includes(substringSLOW)){
+                            effect += " Enemy is slowed for " + x.duration + " turns."; 
                             };
                                 
                     break;
                             
-                }    
+                }
+
+                return effect;    
             }
 
             var mc = {
@@ -102,15 +167,15 @@
         // Set up buttons correctly.
         function buttonset(target, item){
             document.getElementById(target).onclick = document.getElementById(item.button).onclick;
-            document.getElementById(target).innerHTML = item.name + '(' + item.cost + ')';
+            document.getElementById(target).innerHTML = item.name;
             document.getElementById(target).style = "font-size:24px;color:" + item.color;
-            document.getElementById(target+"boxdesc").innerHTML = item.text;
+            document.getElementById(target+"boxdesc").innerHTML = item.desc;
             
         };
 
         buttonset("tablebutton1", fireBall);
         buttonset("tablebutton2", frostBolt);
-        
+        buttonset("tablebutton3", frostfire);
 
 
         //buttonset("button2", mc.skills[0].name + ' : ' + mc.skills[0].cost + ' mana' );
