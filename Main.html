@@ -9,63 +9,89 @@
     </head>
     
     <body>
-
-
-        <table style="width:100%">
+        <table style="width:100%;font-size:20px">
             <tr>
-              <th id="text">text here</th>
+                <th style="width:100%" id="tabletop">Battle Game </button></th>
             </tr>
         </table>
-        <button type="button" onclick='var aa = cast(mC.skills[1]); document.getElementById("text").innerHTML = aa' >Attack!</button>
-        
+
+
+        <p style="font-size:24px"  id="tabletext1">text1</p>
+        <p style="font-size:24px"  id="tabletext2">text2</p>
+        <p style="font-size:24px"  id="tabletextactions">action text</p>
+
+
+
+        <table style="width:100%;font-size:16px">
+            <tr>
+              <th style="width:50%" id="tablebutton1box"><button id="tablebutton1" type="button" style="font-size:24px">---</button>
+              </th>
+              <th style="width:50%" id="tablebutton2box"><button id="tablebutton2" type="button" style="font-size:24px">---</button>
+              </th>
+            </tr>
+            <tr>
+                <th style="width:50%" id="tablebutton1boxdesc"></button>
+                </th>
+                <th style="width:50%" id="tablebutton2boxdesc"></button>
+                </th>
+            </tr>
+        </table>
+
+        <! Action Buttons: >
+        <button id = "frostboltbutton" style="display:none" onclick='document.getElementById("tabletextactions").innerHTML = fireBall.text; cast(fireBall)' ></button>
+        <button id = "fireballbutton" style="display:none" onclick= 'document.getElementById("tabletextactions").innerHTML = frostBolt.text; cast(frostBolt)'></button>
         
         <script>
 
             var fireBall ={
                 name : "Fireball",
                 type : "Attack",
+                color : "red",
+                cost : 10,
                 dmg : 15,
                 castTime : 2,
                 cooldown : 10,
                 extra : "DOT",
-                dot_dmg : 2,
-                duration : 3
+                extra_dmg : 2,
+                duration : 3,
+                text : "15 dmg + 2 dmg every turn for 3 turns.",
+                button : "fireballbutton"
             }
 
             var frostBolt ={
                 name : "Frostbolt",
                 type : "Attack",
+                color : "blue",
+                cost : 5,
                 dmg : 10,
                 castTime : 2,
                 cooldown : 10,
                 extra : "SLOW",
-                duration : 2
+                duration : 2,
+                text : "10 dmg and slowed for 2 turns",
+                button : "frostboltbutton"
             }
 
-            function cast(x){ // Add Target.
-                var effect = "" + x.name;
+            function cast(x){ // TODO Add Target.
+                
                 switch (x.type) {
                     case "Attack":
-                        effect = effect + " *Damage: " + x.dmg;
                                 
                         if (x.extra == "DOT"){
-                            effect = effect + " *Continous damage: " + x.dot_dmg + " for " + x.duration + " turns.";
                             };
                                 
                         if (x.extra == "SLOW"){
-                            effect = effect + " *Slowed: " + x.duration + " turns.";
                             };
                                 
                     break;
                             
                 }    
-                return effect;
             }
 
-            var mC = {
+            var mc = {
                 name: "John",
                 style : "Old Man",
-                mana       : 5566,
+                mana : 5566,
                 health : 100,
                 skills : [fireBall, frostBolt],
                 useSkill : function(x) {
@@ -73,8 +99,25 @@
                     }
             };
 
-    //document.getElementById("text").innerHTML = cast(mC.skills[1]);
+        // Set up buttons correctly.
+        function buttonset(target, item){
+            document.getElementById(target).onclick = document.getElementById(item.button).onclick;
+            document.getElementById(target).innerHTML = item.name + '(' + item.cost + ')';
+            document.getElementById(target).style = "font-size:24px;color:" + item.color;
+            document.getElementById(target+"boxdesc").innerHTML = item.text;
             
+        };
+
+        buttonset("tablebutton1", fireBall);
+        buttonset("tablebutton2", frostBolt);
+        
+
+
+        //buttonset("button2", mc.skills[0].name + ' : ' + mc.skills[0].cost + ' mana' );
+        //buttonset("button1", mc.skills[1].name + " : " + mc.skills[1].cost + " mana" );
+
+
+
         </script>
 
     </body>
